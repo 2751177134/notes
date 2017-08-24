@@ -1,0 +1,84 @@
+<canvas id="myCanvas" width="200" height="100" style=""border :1px soilid #000;"></canvas>
+canvas默认宽高300*150 不要用css设置宽高（会拉伸）相当于增加canvas画布的大小 但像素没有变化
+
+/// .lineWidth=数字  ;  线宽
+
+var obj =document.getElementById("myCanvas");
+var ctx=obj.getContext("2d")       指定在画布上绘制工具集
+ //   obj.getContext("webgl")       绘制立体图形工具集
+              
+
+绘制线条
+ctx.moveTo(0,0)        定义线条开始坐标
+ctx.lineTo(200,100)  定义线条结束坐标
+////ctx.closePath()    解决线宽的问题（闭合方法等同于lineTo（，））
+ctx.stroke( );               绘制线条
+////.fill()  图形填充（当一个图形中套再套一个图形时，内外图形坐标编写方向相反时，只填充两者之间的部分）
+
+/// lineCap="butt(默认)、round（圆）、square（方）"        线条末端样式 
+/// lineJoin="miter(直角)、bevel（平角）、round（圆角）"   线条拐角样式  
+
+绘制虚线
+.setLineDash（[实线长度，虚线长度]）
+.getLineDash（）
+
+绘制矩形
+.rect（x,y,width,height）        x,y为左上端点的坐标 该属性必须紧跟stroke（）或fill（）
+.strokeRect(x,y,width,height)
+.fillRect(x,y,width,height)
+.clearRect(x,y,width,height)     矩形删除
+
+.strokeStyle="线条颜色"
+.fillStyle="填充颜色"
+
+绘制圆形 
+ctx.beginPath( );   开启一个新的绘图 （避免填充时全部都被填充）
+
+arc(x,y,r,start,stop)         x，y圆心坐标 ，start圆弧开始的角度 stop为圆弧结束的角度；
+ctx.stroke（）
+
+创建文本
+ctx.fillText（"内容"，x，y)              实心文本  x,y左下角坐标
+ctx.strokeText( "内容"，x，y)	    空心文本
+ctx.font="30px Arial";
+创建渐变
+var grd=ctx.creatLinearGradient(x,y,x1,y1.....)       线条渐变  
+grd.addColorStop（0，“颜色”）                   起始颜色
+grd.addcolorStop(1,"颜色")	                终点颜色
+///
+填充渐变
+ctx.fillStyle=grd;
+ctx.fillRect=(x,y,width,height)    颜色填充的位置宽高
+
+var grd=ctx.creatRadialGradient（x,y,r,x1,y1.r1.....)    径向渐变
+var grd=ctx.createRadialGradient(75,50,10,90,60,100);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+ctx.fillStyle=grd;
+ctx.fillRect(10,10,150,80);
+
+将图像放入画布中
+方法一
+/////<img id="scream" src="img_the_scream.jpg" alt="The Scream" width="220" height="277"><p>Canvas:</p>
+var img=document.getElementById("scream");
+ctx.drawImage(img,10,10);   左上角坐标
+方法二      （img可以是图片，video，或者canvas）
+varimg=new Image（）
+img.src="o1.jpg"
+img.onload =function(){
+     ctx.drawImage(img,x,y)
+}
+
+.drawImage(img,x,y,width,height)将img放入矩形框中
+.drawImage(img,Ix,Iy,Iwidth,Iheight,x,y,width,height) 将图片（IX，IY）的区域放入坐标（x，y）的矩形框等比例缩放
+
+
+.stranslate()  坐标系平移
+.rotate()  坐标系旋转
+.skew(,)   坐标系缩放
+原坐标系不变，相当于新进坐标系作图；
+
+
+.save()
+...           阻止canvas属性的继承 （每个图形前后添加）
+.restore()

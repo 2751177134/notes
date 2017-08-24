@@ -1,0 +1,53 @@
+1.0配置js文件
+   在main.js中使用require("scle.js路径")调用scle.js（require只能在打包时使用，其他时候没有这方法）
+
+2.0配置css、scss、less文件 (以css为例)
+   在main.js中使用require("css路径")调用css文件
+   初始化package.json,在命令面板中输入npm init
+   在webpack练习文件夹中打开命令面板输入npm install nrm -g 下在nrm，然后输入nrm ls 查看可选择的下载路
+   径，输入nrm use taobao ，在输入npm install style-loader css-loader --save-dev安装css的插件 
+   在webpack.config.js中配置main.js的路径和生成文件build.js的绝对路径
+    配置module:{
+                    loaders:[
+                            {
+                                    test: /\.css$/,   //打包css文件
+                                    loader:'style-loader!css-loader'
+                            },
+                    ..........
+                }
+   最后在命令面板中输入 webpack  ，打包成功
+
+   scss插件:npm install node-sass sass-loader style-loader css-loader --save-dev
+   scss配置:loader:'style-loader!css-loader!sass-loader'
+
+   less插件:npm install less less-loader style-loader css-loader --save-dev
+   less配置:loader:'style-loader!css-loader!less-loader'
+
+3.0配置url()图片
+    安装插件:npm install file-loader url-loader --save-dev
+    配置:test: /\.(png|jpg|gif|ttf)$/,
+        loader:'url-loader?limit=20000'
+
+
+4.0自动生成build.js刷新页面
+   webpac-dev-server的使用
+    (1). 安装webpack-dev-server
+    npm install webpack@1.14.0 webpack-dev-server@1.16.0 --save-dev
+    (2). 安装自动生成HTML文件的插件
+    npm install html-webpack-plugin@2.28.0 --save-dev
+    (3). 修改package.json文件
+            "scripts": {
+                    "dev": "webpack-dev-server --hot --inline --open --port 5008"
+            },
+    (4). 配置webpack.config.js中的内容
+    - 在webpack.config.js引入html-webpack-plugin
+           var htmlWP = require('html-webpack-plugin');
+    - 在modul.exports中加入
+             plugins:[
+                    new htmlWP({
+                            title: '首页',  //生成的页面标题
+                            filename: 'index.html', //webpack-dev-server在内存中生成的文件名称，自动将build注入到这个页面底部，才能实现自动刷新功能
+                            template: 'index1.html' //根据template.html这个模板来生成(这个文件程序员自己书写)
+                    })
+             ]
+    (5). 运行 npm run dev

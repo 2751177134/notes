@@ -1,0 +1,333 @@
+初始化仓库     命令 git init
+配置全局用户名 命令 git config --global user.name 'songfeifan'
+配置全局邮箱   命令 git config --global user.email '906828288@qq.com'
+删除配置       命令 git confit --global --unset user.name
+
+把代码放在仓储的门口     git add ./文件目录（*所有文件）
+把代码提交到仓库         git commit -m '本次提交描述'
+把所有修改的一起提交仓库  git commit --all -m '本次描述'
+
+查看代码修改传入的状态   git status
+查看所有提交记录             git log
+查看所有提交记录（一行显示）  git log --oneline
+查看最近的3次的提交记录       git log -3
+查看所有分支的所有操作记录    git reflog
+往前回退几次             git reset --hard Head~0        (0为上次 依次类推)
+回退到指定位置           git reset --hard 版本号信息
+
+
+忽略不提交的文件 
+1.创建 .gitignore 文件
+2.在.gitignore中填写  /文件名（路径）
+
+默认主分支 master
+创建分支         git branch dev （里面的东西和master里面一摸一样）
+查看所有分支     git branch 
+切换分支         git checkout dev
+合并分支 在master中 git merge dev 
+删除分支  在master中 git branch -d dev
+
+git push https：//.. master   将本地代码推送到服务器3
+git pull https://.. master    从服务上得到代码    （注意初始化一个git 仓库）
+git clone https：//.. master  得到服务器的数据 ，多次执行会覆盖本地内容（一般最开始执行一次）
+
+简写
+git remote add origin 地址 （不用加master）    (只针对编写者本人使用)
+git push origin master  （以后就不用写地址了）
+git pull origin master
+//git push origin -u master（以后就不用写master） (只针对编写者本人使用)
+//git push
+//git push
+
+ssh方式上传代码
+生成公钥和私钥
+先git init
+在ssh-keygen -t rsa -C "邮箱" （生成公钥）（C:\Users\Administrator\.ssh\id_rsa.pub）
+
+ 
+冲突（相当于异步冲突 个人理解）
+假如俩个人之间修改同一文件，一人修改后push到服务器而另一人将自己修改的上传到服务器时 发现自己并不是
+按照服务器上最新的一次来修改，这样就不能直接上传到服务器上，只能先才能够服务中pull下来手动将两个人最新的
+修改合并才能在此push上服务器
+
+
+
+初始化操作 （在cmd中下载）
+  npm init   生成一个package.json文件
+下载需要的
+ npm install jquery（下载文件）
+ 会去registry.npmjs.org 这个地址下载包
+ 会生成node_modules目录 下载内容就在这个目录中
+
+
+
+gulp前端自动化构建工具（压缩、混淆（一切只为减少内存））
+gulp.task(‘任务名’，function(){ })        创建任务
+gulp.src(‘./*.js( 或css等)’)              指定想要处理的文件
+gulp.dest()                                 指定最终处理后的文件的存放路径
+gulp.watch()                                自动的监视文件的变化，然后执行相应任务
+gulp.run("任务名")                          直接执行相应任务
+
+在项目文件夹中使用cmd下载node_modules文件(包含gulp-concat、gulp-uglify文件) 
+在gulpfile.js中写入
+gulp.task('text',function(){
+	gulp.src('index.js','index2.js')
+	.pipe(concat('hecheng.js')}
+	.pipe(uglify())
+	.pipe(gulp.dest('合成后js储存路径'))
+})
+cmd 中 gulp text 输出
+
+
+
+gulp.task("watch",function(){
+   gulp.run('script');       (没有这一句话则必须每个js文件都改变才会执行)
+   gilp.watch(['index.js','index2.js'],['script'])
+})
+在 cmd 中gulp watch  输出
+
+
+
+单页应用程序 （SPA）
+  通过url的hash值改变，而加载不同的模板从而实现页面的切换
+  案例 页面中a标签的锚点监听（点击a刷新div中的内容）
+  window.addEventListener（‘hashchange’，function（）{
+	var hash =location.hash
+	switch(hash){
+ 	   case '#find1'：
+ 	      $.get('index.json',function(data){      (获取json数据)
+                 $('#box').html(data.data) 
+	      },'json')
+ 	   break ;
+	   case '#find2'：
+	      $.get('index.json',function(data){  (获取json数据)
+                 $('#box').html(data.data) 
+	      },'json')
+ 	   break ;
+}）
+
+
+angular的使用
+需要在页面上被处理得当代码加上ng-app属性（相当于angular指定作用范围）
+在angular 中以ng-开头的属性称之为指令(标签属性)
+应用angular.js
+ng-model=“val”                获取文本框值  val相当于js中的变量名可随便取
+ng-click=“val = （val-0）+1”  点击事件
+<p>{{val}}<p>                   p标签中值得添加
+ng-init ‘val=。。。。’         初始化val的值为。。。
+
+<script>   （模块控制一个区域，控制器为模块的下级在这个区域内控制特定的区域）
+创建模块
+ （在ng-app指令属性值上写上模块名）  
+  var app= angular.module('模块名',[]) 提供模块管理页面 如果依赖其他模块就必须在数组中加入（不依赖其他模块也要
+  写上空数组【】不传递第二个参数就会变成获取窗口模块）
+创建控制器
+  app.controller（‘控制器名’，function（$scope）{}）
+  比如 初始化 {{text}}的值 就直接在函数中改$scope.text=的值
+  {{text}}所在的标签页要加入ng-controller=“控制器名”
+   当传入2个以上参数时
+  app.controller("控制器名"，【“$scope”，“$log”,function($scope,$log){(数组中前面的参数书写顺序和函数中的形参顺序相应）
+	$scope.msg="xxxx";
+ 	$log.log("hahaha!")
+    }】
+
+
+双向数据的绑定
+  数据模型（$scope。属性）的改变，会影响内容的显示（文本框的值）
+  改变文本框的值，对应的数据模型也发生改变
+
+MVC
+  M：Model 储存，获取数据
+  V：View  视图，把数据呈现给客户
+  C：controller  做一些控制和调度的操作
+
+
+在angular中可以吧angular.element当做jQuery来使用 angular.element要求传入的参数为原生的dom对象而不是选择器
+  angular.element(document).ready(function(){
+    var app = angular.element(document.getElementById（“box”）);
+  })
+ 
+
+angular开发流程
+  1.在html中引入angular.js文件
+  2.在html 加ng-app指令
+  3.在js中创建模块‘var xxx = angular.module('myapp',【】)’，给ng-app指令一个值为‘myapp’
+  4.在js中创建控制器‘xxx.controller（‘控制器名’，function（）{ }）’，在页面加上ng-controller=“控制器名”
+  5.建模：根据页面结构，抽象出具体的js对象
+  6.通过$scope做一些初始化操作
+  7.通过ng-model，ng-click，{{ }} 把$scope的属性在页面展示出来
+  8.在js写y一些具体的逻辑
+
+面向对象的方式创建控制器
+  <div ng-controller="demoController as obj">
+     <p>{{myname}}</p>
+     <p>{{obj.age}}</p>
+  </div>
+  <script>
+     var app =anguler.moduler('myApp',[]);
+     app.controller('demoController',function($scope){
+         $scope.name="xxxxx";
+         this.age="18";
+     })
+  </script>
+
+解决表达式闪烁
+方法1
+   ng-bind="ppp"   把对象的数据显示在标签内部（单项绑定 ng-model是双向绑定）
+放大2
+   在标签中加入class=“ng-cloak”  （ng-cloak{display:none}）angular会在开始时先加载表达式然后立即删除样式（时间差解决闪烁）
+
+
+<li ng-repeat = "item in users">   遍历user数组（length多少就创造多少个li） 
+   {{item.name}},{{item.age}}
+</li>
+$scope.users=[{name:"xiaoming",age:18},{name:"xiaofang",age:19}]
+
+
+遍历普通数组<li ng-repeat="item in arr"> {{item}}  arr=【1,2,3,4】
+当遍历数组中有重复的数据时   <li ng-repeat="item in arr track by $index">  arr=【1,2,3,4,1,2】
+
+各行变色
+class=“{{$odd?'red':'green'}}” 遍历时判断添加背景颜色
+$even  \ $first \ $last  \ $ middle
+
+ng-class 可以给元素添加class样式  以对象的形式书写。angular会把属性值为true的属性名当做类名添加
+ng-class=“{red：true}”
+ng-class=“{red：item.age>=20}”  （red为css中的类名）（多个类名之间用，）
+
+ng-show=“true/false”  显示/隐藏
+ng-hidd=“true/false”  隐藏/显示
+ng-if=“ture”  显示 （false时 元素删除）
+ng-switch-when对应的值等于ng-switch对应的值时 显示
+<div ng-switch="name">
+  <div ng-switch-when="xiaohong">xxxxxxxxxx</div>
+  <div ng-switch-when="xiaoming">pppppppppp</div>
+  <div ng-switch-when="xiaofang">wwwwwwwwww</div>
+</div>
+
+ng-checked 单选框/复选框是否选中
+ng-disabled  是否选中
+ng-readonly 是否只读
+ng-selected 是否选中
+
+事件指令
+ng-blur 失去焦点
+ng-foucs 获取焦点
+ng-change  内容改变
+ng-copy  复制
+ng-click  点击
+ng-dblclick  双击
+
+
+自定义指令
+<div my-ppt></div>
+  var app =angular.module("myapp"，[ ])
+  app.drective("myPpt",[function(){
+      return{ 
+        template:"<button>名字必须驼峰命名</button>"
+	//template提供一个HTML字符串，最终被添加在自定义指令位置
+	//templateUrl添加一个html地址 或者-个script (type="text/ng-template" )的id
+	restrict:"A"(属性形式)C（类名形式）E（自定义标签形式） ACE(三种全部使用) M（注释类型<!-directive:my-medu Product-!>
+	replace:true;(替换模板  false为插入)
+	transclude：true；（把自定义标签中的“内容”插入到拥有ng-transclude属性模板中）
+	//<my-ppt>内容</my-ppt>  
+	//<script type="text/ng-template" id=“id”><button>被替换内容</button></script>
+	scope{          获取自定义指令的属性值
+		 tmp：“@mystyle ”，    {{tmp}} 将自定义标签中属性mystyle的值直接给模板中{{tmp}}
+		（简写）mystyle：“@” ，    {{mystyle}}  将自定义标签中属性mystyle的值直接给模板中{{mystyle}}
+ 	}                     
+     }
+  }])
+
+link
+link需要一个function function在angular解析到相应指令时就会执行一次
++scope ：类似$scope 只不过这里scope的属性值只能在模板中使用、
++element 指向模板插入的对象 如果replace：true； 则指向自定义指令所在标签
++attributes  自定义指令所在标签的所有属性
+link：function（scope，element）{ 
+	scope.msg =""，
+	element
+	
+}
+
+
+过滤器
+  格式化数据
+  过滤数据
+
+在数据模型后加| 在加上过滤器的名字  可以再指定过滤器名字后写上显示的单位或格式
+过滤器currency 、date
+  {{money|currency："￥"}} ==>￥9998   
+  {{myDate|date:"yyyy/mm//dd HH:mm:ss"}} 或者 {{myData|date:"yyyy年mm月dd日 HH:mm:ss"}}
+过滤器 limitTo  第一个参数表示显示多少个字 第二个参数表示从第几个字开始
+  {{msg|limitTo :4:2}}
+过滤器 orderBy 排序顺序 + 升序 - 降序
+  <span ng-repeat="item in arr | orderBy:'-'">{{item}}</span> 
+过滤器 json 格式化显示数据  与pre连用(了解) 参数指定缩进长度
+  <pre>{{myjson | json :8 }}</pre>
+过滤器filter  （选择包涵指定元素的字符串、对象）
+  <div ng-repeat ="item in arr | filter : '你我他'(或者{completed：true})">
+
+在js中使用过滤器
+$scope.result=$filter（"currency"）($scope.money，￥)
+  通过调用不同的过滤器得到相应的结果然后直接使用 第一个参数是需要处理的数据 第二个当前过滤器本省需要的参数（可以不写）
+
+$watch  监视数据模型变化就调用这个函数now,old 改变前后的值 
+ (只能监视$scope的属性、$scope方法的返回值 不能直接监视方法)
+  $scope.getAge=function(){return $scope.age}
+  $scope.$watch("getAge()",function(now,old){ .... })
+
+
+
+路由
+创建模块
+<script src="angular.js"></script>
+<script src="angular-route.js"></script>
+var app =angular.module("myapp",["ngRoute"]);
+app.config（["$route",function($route){ 
+   当angular检测到url中锚点变为/ail值，就会把template对应的内容插入到页面拥有ng-view指令的标签
+    $route.when("/ail",{
+	template:"<div>123</div>",	
+    }).when("/baidu",{
+        template:"<div>{{ppt}}</div>",
+	//当url锚点为baidu 时 就执行回调函数在template/templator对应的模板中传入对应控制器里的值
+	controller:"demoController"
+    })
+指定控制器的名字
+    app.controller("democontroller",["$scope",function($scope){
+	$scope.ppt="hello word"
+    }])
+}]）
+
+在规则中：冒号开始，后面跟一个名字（就相当于变量名，辨明当前位置可以写成任意的值）
+在原有规则中可以加冒号；表示冒号内容可以变得（ 但必须要有）如果叫上问号就能够匹配到了
+ var app =angular.module("myapp",["ngRoute"]);
+app.config（["$routeProvider",function($route){ 
+   当angular检测到url中锚点变为/ail值，就会把template对应的内容插入到页面拥有ng-view指令的标签
+    问号表示当前位值如果没有值，也可以匹配到
+    $route.when("/company/:myname?",{
+	template:"<div>{{msy}}</div>",	
+    	controller:"demoController"，
+	
+    })
+    $route.when("/company/:xxx",{
+	template:"<div>123</div>",	
+    	
+	
+    })
+    当以上规则不匹配时就匹配otherwise
+    otherwise({
+	redirecto:"company/ali"  这里相应把页面错点改为campany/all
+    })
+指定控制器的名字
+    app.controller("democontroller",["$scope"，"$routeParams",function($scope,$routeParams){
+	//$routeParams的属性包含了路由参数及值
+	//假设有一组数据
+	$scope.ppt="hello word",
+	$scope.date={
+	   baidu:"二楼"，
+	   ail：“三楼”
+	}
+	$scope.msy="你要找的公司在"+$scope.data[$routeParams.myname]
+    }])
+}]）

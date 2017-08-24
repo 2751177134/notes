@@ -1,0 +1,13 @@
+#v1{
+    border:1px solid white;
+}
+.box{
+    width: 250px;
+    height: 250px;
+    background:url(../images/y.jpg);
+}
+.box1{
+    width: 200px;
+    height: 200px;
+    background:url(../images/pic_1.jpg);
+}

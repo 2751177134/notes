@@ -1,0 +1,178 @@
+font-weight: 400（normal)；700(bold)；
+
+font-styLe: italic(斜体)/oblique；normal；
+
+font的连写 {font: font-styLe font-weight font-size/line-height font-family；}
+{font: italic 700 20px/24px “微软雅黑”；}
+
+
+font-size和font-family必须有
+
+<span></span>无意义标签
+
+class组合命名 class=“xxx ppp bbb”三个命名可以拿出单独编写属性可组合编写
+
+同类属性重合时自动从上而下选择最后一个属性
+
+十六进制颜色命名 一般字母大写 #FF00FF  第12相同34相同56相同可以简写#F0F
+
+line-height 行高单位 px/em  1em=1个字的高度
+
+text-indent 首行缩进 单位em/px    text-align:center/left/right  给块级元素加属性 作用放置块级元素中的行内元素、文本、块级元素位置
+ 
+交集选择器  标签+class命名
+并集选择器  各种class命名之间+逗号 （所有命名都选择）
+后代选择器  class命名+空格+内标签+内标签
+子元素选择器  class命名>内标签 （选中内标签）
+
+交集选择器 既是...又是...  一般是标签+id   比如div.xxx{   }  既是div又是xxx
+
+并集选择器 比如div，p，span{   } 三个标签全部选中  p,em,.xxx{     }
+
+后代选择器 比如div ul li或者 .xxx ul li 
+
+子代选择器 比如.xxx>li只选择紧跟xxx后的li标签
+<ul class=“XXX”>
+   <li>一级菜单
+      <ul>
+          <li>二级菜单</li>     （ .XXX> li{  }只选择一级菜单     ）
+          <li>二级菜单</li>
+      </ul>
+   </li>	
+</ul>
+<ul></ul>
+
+块级元素 h1-h6  p  div  ul ol  li 等标签 其中div是最典型的块级元素   ul无法居中一般放在div中
+块级元素都会独占一整行或多整行 可对其设置宽和高 可容纳其他元素   文字型块级元素不能容纳其他块级元素比如p h中不能放块级元素
+
+行内元素 a strong b em i del s ins u span 等，其中span最经典   level
+设置的宽高无效只根据内容默认宽高但水平方向的padding和margin可以设置  只容纳文本或其他行内元素 a标签不能放a标签      block
+
+行内块级元素img  input td等可以设置宽高 在同一行显示
+
+display：inline 把块级元素转换成行内元素   display：block 把行内元素转换成块级元素 display:inlink-block 转换行内快
+
+伪元素
+a:link{   }未被点击过的链接表a现属性         text-decoration    none underline(下划线) overline（上划线）line-through(删除线)
+a:hover{   } 鼠标经过的链接表现属性
+a:active{   }鼠标按下不弹起时表现属性
+a:visited{   } 点过后的链接得表现属性
+指定顺序不可改变 link-visited-hover-active
+focus 光标点位到文本框时表现属性用于input
+div可用 active hover  input可用  hover foucs
+
+p:first-letter{  } 文本首字母属性  p:first-line{   } 文本首行属性
+
+行内样式表（内联样式表）直接通过标签内的style属性来设置元素的样式  比如<div style="属性:属性值;属性:属性值;">xxxx<div>
+
+嵌入样式表 嵌入head标签内
+
+外链样式表 head标签内嵌入<link rel="stylesheet" href="css路径">
+
+导入式样式表 <style type="text/css"> @import url(css文件路径);或 @import "css文件路径";</style>
+
+行高line-height 单位em / % /不加单位 
+当文字垂直居中时文字行高等于盒子的高度   当父级有行高单位时先根据父级元素字体计算子元素字体大小 
+当父级元素没有行高单位时直接把父级行高的倍数给子元素，由子元素字号计算行高
+
+标签显示的权重 同级时优先顺序 行内样式> #id>.class/伪类>父级标签>子集标签  从到下优先级一次增大
+通配符*的权重 > 继承的权重   *{  } > div{  }      <div><p>xxx</p></div>
+
+
+background-color 背景颜色   属性backgronund-color：rgba（0，0，0，0.5）；背景黑色透明
+background-repeat:repeat no-repeat repeat-x repeat-y 平铺
+background-position：XXX px YYY px（有先后顺序）;或left right top bottom(无先后顺序)/ XXXpx center/center YYYpx(有先后顺序); 
+除body的盒子设置背景图片位置一定要给盒子设置高度 body设置背景图片位置时Y方向不能写center位置
+background-attachment：scroll/ fixed 背景图片是否滚动 
+background：颜色 背景图片 平铺 固定 位置 （官方标准但先后可以变动）
+
+border：border-width（粗细pxd） border-style border-color 无顺序
+none 没有边框  solid边框单实线  dashed边框为虚线 dotted点线  double双线  
+border-collapse:collapse；合并边框   border-spacing：00px；边框之间的距离为0
+
+表单边框清零 input{ border：opx；}在编写边框样式 这样可以避免不同浏览器的兼容性
+
+outline:none 初始化轮廓线 input,textarea,a{outline:0/none}取消轮廓线以防兼容性问题
+
+transparent透明色
+
+padding：5px； 上下左右10px
+padding：5px 10px；上下为5px 左右是10px
+padding：5px 10px 15px；上为5px 下为15px 左右为10px
+padding：5px 10px 15px 20px；上为5px 右为10px 下为15px 左为20px
+
+margin-left：auto；左侧充满（盒子紧贴右边）
+margin：0 auto；上下为0px 左右居中
+
+text-align：center；加载父级盒子上 对父级盒子里面面的行内块和行内元素及文字使用
+margin：o auto；加载在子级盒子上 对盒子使用
+
+浏览器默认的body有个margin为8px
+
+外边距的合并 margin-bottom和margin-top的垂直的间距是两者中较大者
+嵌套关系的外边距合并 父级盒子要在合并的边r加1px的border边宽或padding内边距
+
+行内元素不能设置padding和margin
+
+folat：left/right
+float只能在父级盒子padding内移动 无法超出边框
+float 不占位子不会影响下一行 float不会浮在文字 布置会被环绕
+行内、块级元素添加浮动 会具有行内块的属性
+浮动根据元素书写的显示位置依次浮动排列
+
+清楚浮动是解决没有设置高度的父级元素因为子级浮动而高度为0的问题
+选择器{ clear：属性值；}
+ left：不允许左侧有浮动元素 right：不允许预测有浮动元素  both：清楚左右两侧浮动
+①额外标签法 在末尾加个空标签   例：<div style="clear：both"；> 
+②父级添加overflow：hidden/auto/sroll
+③添加 .clearfix:after{ content:"."；        class="clearfix"添加父级标签中
+                       display:block；
+                       height:o；               （after伪元素清楚浮动）
+                       visibility:hidden；
+                       clear:both；}
+       .clearfix{*zoom:1；（只有ie6.7识别）}
+
+④.clearfix:after{content:"\200B"；或者“\0020”
+		  display:block；
+		  height:0；                      (after的空余字符法)
+		  clear:both；	 }
+  .clearfix{*zoom:1；}
+
+⑤.clearfix:before,.clearfix:after{
+	content:""；
+	display:table；}
+  。clearfix:after{clear:both；}
+  .clearfix{*zoom:1；}
+
+边偏移left/right/top/bottom:  px/%；
+静态定位position：static；可将元素定位于静态位置（无法使用边偏移）
+
+相对定位position: relative； （相对原先的位子移动）原位置仍然占用
+
+绝对定位position：absolute 当父级没有定位它的定位以浏览器来定位  原位子不占用 (子绝父相)
+
+当父级有边偏移动时 则它的定位以父级元素定位
+
+固定定位postion：fixed；跟父级没关系 只认浏览器 不占位子 不随滚动条滚动
+固定通栏时要给通栏设置width：100%；（固定定位后元素变成行内块元素若没有宽度则它的宽度取绝于后代元素的宽度）
+
+z-index:数字； 默认数字为0 数字越大越靠上
+只有设置相对定位 固定定位 绝对定位才能设置层级
+
+定位模式转换
+加了绝对定位或者固定定位的盒元素，元素模式也会发生转换都转换为行内块模式可直接设置高度和宽度不用加display：inlink-block；
+
+display:none；隐藏元素（位子不在保留）  页面看不到 代码中还有
+visibility：hidden； 隐藏元素（原位置保留）
+visibility:visible;  对象可见
+
+overflow：visible；内容超出部分不剪切也没有滚动条
+overflow：auto；内容超出自动显示滚动条，不超出不显示
+overflow；hidden；不显示超出对象尺寸的内容，超出部分隐藏
+overflow：scroll；无论书否超出都显示滚动条
+
+
+
+
+cursor:default；鼠标变为小白
+cursor：pointter；鼠标变为小手 

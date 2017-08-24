@@ -1,0 +1,189 @@
+yconsole.dir(元素对象)  显示对象的数字属性
+
+demo.dir=“  ”   给对象属性赋值
+
+onclick =“return false” 阻止a标签的跳转
+
+document.getElementById("  ")        id获取元素对象
+document.getElementsByTagName(" ")   获取的是数组 
+
+
+
+组织a标签的默认跳转
+<a href="http://www.baidu.com" onclick="return false">阻止a标签的跳转</a>
+
+<a href="http://www.baidu.com" onclick="return test(16)">阻止a标签的跳转</a>
+<script>
+function test(age){
+        if(age>18){
+            alert("欢迎")
+        }else{
+            alert("禁止")
+            return false
+        }
+    }
+</script>
+
+<a href="http://www.baidu.com" id="demo">阻止a标签的跳转</a>
+<script>
+    var demo =document.getElementById("demo");
+    demo.onclick=function () {
+        return false
+    }
+</script>
+
+范例
+<ul id="imagegallery">
+    <li><a href="1.jpg" title="美女A">
+        <img src="1-small.jpg" width="100" alt="美女1"/>
+    </a></li>
+    <li><a href="2.jpg" title="美女B">
+        <img src="2-small.jpg" width="100" alt="美女2"/>
+    </a></li>
+    <li><a href="3.jpg" title="美女C">
+        <img src="3-small.jpg" width="100" alt="美女3"/>
+    </a></li>
+    <li><a href="4.jpg" title="美女D">
+        <img src="4-small.jpg" width="100" alt="美女4"/>
+    </a></li>
+</ul>
+<div style="clear:both"></div>
+<img id="image" src="placeholder.png" alt="" width="450px"/>
+<p id="des">选择一个图片</p>
+<script>
+    var as =document.getElementsByTagName("a");
+    var image =document.getElementById("image")
+    for(var i=0;i<as.length;i++){
+        var a=as[i];
+        a.onclick =function(){
+            image.src=this.href
+            return false
+        }
+    }
+</script>
+
+给元素添加类命名
+demo.className ="xxx"
+
+使用函数将变量名num2和num3替换
+function repeatClassName(num1,num2,num3){
+        num1.className=num1.className.replace(num2,num3)
+    }
+
+
+box.innerHTML 获取内部的html
+box.innerText 获取内部的文本内容 html忽略
+box.innerHTML =“<h1>aaaa<h1>” 设置内部html
+box.Text =“<h1>aaaa<h1>”     全部变为纯文本
+innerText 和textcontent 相同 就浏览器兼容性有所不同
+旧版IE只支持innerText
+旧版火狐只支持textContent
+使用时用if判断 typeof box.innerText===“string”
+
+
+box.getAttribute(“”) 获取标签中的属性（无论是否是规定属性还是不是规定属性）
+box.setAttribute(“class”，“aaa”) 设置标签中的属性（任何属性都可以设置）
+box.removeAttribute(“”)  移除标签内的所有的属性
+
+
+box.onfocus 获取焦点动作
+box.onblur  失去焦点动作
+
+disable =true 禁止属性（boorlean）
+
+排他思想
+for (var i = 0; i < spans.length; i++) {
+    spans[i].onclick = function () {
+        for (var j = 0; j < spans.length; j++) {
+            spans[j].className = “”
+        }
+        this.className = "current"
+    }
+}
+
+
+box.setAttribute("a",2)  给属性a设置属性值2
+box.removeAttribute("a")  删除属性a
+
+
+
+box.childNodes  获取box子节点 （所有浏览器都可以用）
+box.children  获取box子元素 （在低版本的Ie中会把注释节点也算作子元素）
+ 
+nodeType 节点类型 nodeValue节点内容 nodeName节点名称
+文本节点 nodeType：3   nodeValue：文本内容   nodeName： #text
+元素节点 nodeType: 1   nodevalue: null       nodeName: 标签名
+注释节点 nodeType：8   nodeValue：注释内容   nodeName：#comment
+属性节点 nodeType：2   nodeValue：属性值     nodeName：属性名
+
+
+onkeyup  键盘弹起事件  onkeydown 键盘按下事件
+.nextSibling 下一个兄弟节点
+.nextElementSibling  下一个兄弟元素节点（有兼容问题）
+.previousSibling上一个兄弟节点
+.previousElementSinling 上一个兄弟元素节点（有兼容问题）
+
+
+获取样式属性 是获取和设置的标签中的style属性 （都是行内样式 不是css中的属性）
+通过style对象中属性获取到或设置的值 是字符串 而且要带单位
+
+display：none； 元素隐藏后不占位子
+vaisibility：hidden； 元素隐藏后还占位子
+
+parentNode 父节点
+
+var date =new Data() 	创建日期对象
+date.valueOf()          把日期对象转换成数值对象显示
+var date =Date.now()    创建日期对象  旧版浏览器不支持
+var date=+new Date()    创建日期对象  所有浏览器都支持
+
+
+style.transform=“rotate（deg）”转多少度
+
+var str =" 字符串"
+str.slice     (start索引，end索引) 从start位置开始，截取到end  end取不到 （原字符串不变）
+str.substring (start索引，end索引) 从start位置开始，截取到end  end取不到 （原字符串不变）
+str.substr(start,截取个数 )    从start位置开始,截取多个字符（原字符串不变）
+
+str.replace("a","b")         将字符串中的第一个a替换成b（原字符串不变）
+str.charAt(i)     通过索引找字符（原字符串不变）
+indexOf           通过字符找索引（原字符串不变）
+str.trim()        只能去掉两端的空白符（原字符串不变）
+str.split("")  安照指定分割符对字符串进行切割 返还一个数组（原字符串不变）
+
+
+预解析 变量声明提升只提升声明不提升赋值
+     函数声明提升 函数在哪里都可调用
+
+在函数中没有加var声明的变量是全局变量（就近赋值能找到var赋值则只在var赋值的区域内通用 找不到var 命名就全局通用） a="c"
+
+var a=b=c=9 只用a被声明  b和c没有声明 
+
+  var a = 18;
+    fn2();
+    function fn2() {
+        var b = 9;
+        console.log(a);   //undefined
+        console.log(b);   //9
+        var a = '123';
+    }
+
+
+ 
+ fn3();
+    console.log(c);   //9
+    console.log(b);   //9
+    console.log(a);   //报错 a is not defined
+    function fn3() {
+        var a = b = c = 9;
+        console.log(a);  //9
+        console.log(b)   //9
+        console.log(c);  //9
+    }
+
+
+
+console.log(typeof null);       object
+console.log(typeof {});         object
+console.log(typeof []);		 object
+console.log(typeof undefined);  undefined

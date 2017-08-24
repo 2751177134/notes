@@ -1,0 +1,200 @@
+异步请求，局部刷新
+
+F:\wamp\bin\apache\Apache2.4.4\conf\httpd.conf
+   499行 删掉#
+   239行  DocumentRoot "文件地址"
+   240行  <Directory "文件地址">
+
+F:\wamp\bin\apache\Apache2.4.4\conf\extra\httpd-vhosts.conf
+  DocumentRoot "路径"
+  ServerName 自定义域名
+
+C:\Windows\System32\drivers\etc\hosts
+  127.0.0.1       域名
+
+
+
+PHP
+
+echo '' ； 向页面当中输出字符串
+ <?php
+     echo '<div><div>'；
+ ?>
+
+php中单引号对于其中的变量当做普通字符串来处理
+     双引号对于其中的变量会把变量解析成变量值（相当于单引号加.）
+
+变量声明 (由字符 数字 下划线组成，不以数字开头， 大小写敏感)
+字符串拼接 （）
+ $num =123 ;
+
+ echo $num；
+ echo '编号为：'.$num;
+
+数组
+$arr =array(1,2,3);
+$arr1 =array("num1"=>"1","num2"=>"2","num3"=>"3");自定义 键
+$arr1['num1']=1;
+print_r($arr);  文本打印数组（调试）索引=>值
+
+var_dump($arr)  文本打印数组包括length（调试）
+
+gettype($arr)  判断变量的类型
+遍历
+for（$i=0;$i<count($arr);$i++）{;}; 分号不可以省略
+foreach（$arr as $value）{
+	echo $value; 
+}
+
+函数
+function func（$num）{}
+
+json_encode(arr) 转化为字符串
+
+http 协议的常用请求方法；
+$_GET[' '] 用来获取数据  (表单的默认传递数据的方式)
+$_POST[' '] 根据表单中的name属性获取数据 
+
+header（'Content-Type:text/html; charset=utf-8'） 解决乱码
+
+
+1.创建XMLHttpRequest对象
+    //if(window.XMHttpRequest){
+    //   xhr= new XMLHttpRequest();
+    //}else{
+    //    xhr=new ActiveXObjext("Microsoft");
+    //}
+
+    // try{ xhr=new XmlHttpRequest()
+    // }catch(e){
+    // xhr=new ActiveXObject("Microsoft")}
+var xhr=new XMLHttpObject();
+
+2.准备发送
+xhr.open（‘get’，‘...php’,true）;
+get 获取数据 post提交数据
+同步或一部标志位 默认true为异步 false为同步
+xhr.open('get','02get.php?name1='+num1+'name'+num2,true)
+3.执行发送
+xhr.send(null) ;     get请求这里需要添加null参数
+4.指定回调函数
+xhr.onreadystatechange=function (){
+   if(xhr.readyState==4){
+	if(xhr.status==200){
+	 alert(xhr.responText)
+	}
+  }
+}
+
+readyState
+ 0.对象初始化
+ 1.执行发送动作
+ 2.浏览器已经收到了服务器相应的数据
+ 3.正在解析数据
+ 4.数据已经解析完成，可以使用
+status
+ 200表示响应成功
+ 404 没有找到请求的资源
+ 500服务器端错误
+
+encodeURI() 字符串拼接（解决汉字乱码）
+
+post请求参数通过send传递，不需要通过encodeURI（）转码
+必须设置请求头信息
+xhr.open('post','04post.php',false)
+xhr.setRequestHeader（“Content-Type”，“application、x-www-form-urlencoded”）
+xhr.send(param)
+
+传递的数据类型 xml json text html script jsonp
+
+Json_encode($ )  把php数组转化成长得像json形式的字符串  （在php中使用）
+
+JSON.parse( )  把json形式的字符串转化成对象 （js中使用）
+JSON.stringify（ ） 把对象转化成字符串      （js中使用）
+eval（"("+ +")"）的作用就是把字符串解析成js代码并执行    （js中使用）
+
+js执行从上至下为单线程
+
+事件队列的任务执行条件（条件不满足就不执行）
+1.主线程已经空闲
+2.任务满足触发条件
+   1>定时函数（延时时间已达到）
+   2>事件函数（特定事件被触发）
+   3>ajax的回调函数（服务器端有数据相应）
+	
+
+array_key_eists(k，array)==1 判断数组中有这个键k（php中判断）
+
+静态创建script标签发出请求为同步请求
+1.必须保证加载的顺序
+2.不方便通过程序传递参数
+动态创建script标签通过src发出的请求是异步请求
+var script =document.createElement("script");
+script.src="http://....";
+var head =document.getElementsByTaName（“head”）【0】；
+head.appendChild(script);
+function foo(data){         由服务器调用echo 'foo('. .')'
+  ............
+}
+
+
+art template  模板的使用
+方法1
+<script type="text/javascript" src="../template.js"></script>    //模板引入
+<script type="text/html（注意）" id="moban">                             //date属性填写
+	<h1>{{ title }}</h1>
+	{{ if books }}
+	    {{ each books as value i }}
+	         <div>{{ value }}</div>
+	    {{ /each }}
+	{{ /if }}
+</script>
+<script type="text/javascript">
+     window.onload=function(){
+	var data={title:"...",books:[a,a,a,a]}
+	var html=template("muban",data);                       //将data导入到
+	var info=document.queryselector("#info");
+	info.innerHTML = html ;
+     }
+<script>
+
+方法2
+<script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript" src="./template.js"></script>
+<script type="text/javascript">
+    $(function(){
+       $("#query").click(function(){
+            var code = $('#city').val();
+            $.ajax({
+            url : 'http://cdn.weather.hao.360.cn/api_weather_info.php',
+            data:{app:'hao360',code:code},
+            jsonp:'_jsonp',
+            jsonpCallback:'abc',
+            dataType:'jsonp',
+            success:function(data){
+                 var sourse = '  {{if weather}}'
+                 +'      {{each weather as value}}'
+                 +'          <div>'
+                 +'              <span>日期：{{value.date}}</span>'
+                 +'              <ul>'
+                 +'                  <li>白天天气{{value.info.day[1]}}</li>'
+                 +'                  <li>白天温度{{value.info.day[2]}}</li>'
+                 +'                  <li>白天风向{{value.info.day[3]}}</li>'
+                 +'                  <li>白天风速{{value.info.day[4]}}</li>'
+                 +'              </ul>'
+                 +'              <ul>'
+                 +'                  <li>夜间天气{{value.info.night[1]}}</li>'
+                 +'                  <li>夜间温度{{value.info.night[2]}}</li>'
+                 +'                  <li>夜间风向{{value.info.night[3]}}</li>'
+                 +'                  <li>夜间风速{{value.info.night[4]}}</li>'
+                 +'              </ul>'
+                 +'          </div>'
+                 +'      {{/each}}'
+                 +'  {{/if}}';
+                 var render = template.compile(sourse);
+                 var html = render(data);
+                 $("#info").html(html);
+            }
+
+
+

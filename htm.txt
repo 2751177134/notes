@@ -1,0 +1,74 @@
+<hr />水平线    <br />文本换行
+
+<u>下划线</u>  <ins>下划线</ins>
+
+<s>删除线</s>  <del>删除线</del>
+
+<i>斜体</i>    <em>斜体</em>
+
+<b>加粗</b>    <strong>加粗</strong>
+
+<img src=“img.jpg” border=“边框厚度” alt="图片显示不出替换文字" title=“当鼠标放在图片上时显示的文字”width=“ ”height=“ ” />
+
+src=“../图片名称”上级文件夹寻找图片  src=“文件夹名称/图片名称”下级文件夹寻找图片
+
+<a href=“http://www.baidu.com ////内部页面名称.html”></a>
+
+target=“_blank（新网页跳转）///_self（自己当前网页跳转）” href=“#”空连接
+
+同页面锚点定位 href=“#id”   不同页面锚点定位href=“页面名称.html#id”  （id所需的内容命名）
+
+&nbsp;空格          &lt; <          &gt; >
+
+<!--     注释      --> 快捷键:ctrl+/单行注释     ctrl+shift+/多行注释
+
+有序列表<ol></ol>  <li></li>  ol>li*数字然后tab可生成多个<li></li>       { <ol>中不能嵌入任何标签 <li>中可嵌入标签}
+
+无序列表<ul></ul>  <li></li>  ul>li*数字然后tab可生成多个<li></li>       { <ul>中不能嵌入任何标签 <li>中可嵌入标签}
+
+自定义列表<dl></dl>  <dt>总</dt><dd>分 </dd>
+
+表格<table></table> <tr></tr><td></td>  border=“表格边框”  width=“宽度” height=“高度” 
+cellpadding=“文字与单元格之间的距离（默认1）”cellspacing=“单元格之间的距离（默认2）” align=“网页内对齐方式left right center”
+rowspan=“多行合并一列”   colspan=“多列合并成一行”  <caption>表格标题</caption>    <th></th>表头
+<thead></thead> 表格头部  <tbody></tbody>表格主体     页面优先加载thead和tbody
+
+表单<from action=“地址” method=“提交方式get/ post”> get提交速度快但会显示密码 post速度慢点不会显示密码</from>
+<input type=“ ”/>  属性text单行文本输入框  password密码输入框  radio单选按钮(同一组写同一name)  checkbox复选项（同一组写同一name）
+button普通按钮   submit提交按钮  reset重置按钮  image图像显示按钮   flie上传文件   
+value=“输入想显示字”   checked=“checked”默认选中项
+<p>
+你的性别： 男<input type=“radio” name=“sex” /> 
+           女<input type=“radio” name=“sex” />
+</p>
+<p>
+你的喜欢的水果：苹果<input type=“checkbox” name=“sg” /> 
+                梨子<input type=“checkbox” name=“sg” /> 
+                香蕉<input type=“checkbox” name=“sg” />
+</p>
+<p><input type=“button” value=“登录”/></p>
+<p><input type=“submit” value=“提交”/></p>
+<p><input type=“reset” value=“重置”/></p>
+<p><input type=“image”src=“xx.jpg”/></p>
+<p><input type=“flie” value=“选择文件”/></p>
+
+1.直接使用label标签包含表单控件  
+<p><label>你的姓名：<input type=“text”></label></p>
+2.label选择使用wh
+<p><label for=“xx”>你的爱好</label>
+  <input type=“text”id=“xx”/>
+  <input type=“text” />
+</p>
+<textarea> </textarea>写大量文本（rows=“文本框高”cols=“文本框长”)
+
+<select><option></option></select>下拉列表 option中的selected=“selected”默认显示选择
+
+<base />它的作用就是让我们的a标签链接都是以新窗口打开 （嵌在head内）
+<base target="_blank” />
+
+fel=“nofollow” 点击都不去抓取链接 <a fel=“nofollow” href=“#id”>
+
+
+
+
+ 

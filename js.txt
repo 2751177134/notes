@@ -1,0 +1,404 @@
+alert(“” ) 警示框 （）里面写什么级弹出什么
+
+confirm(" ")  弹出对话框 点击“确定”返回true 点击“取消”返回false；
+	confirm("xxxxx");
+	if(confirm("xxxxx")){window.location="http://..."}
+
+prompt(“参数1”“参数2”) 输入框 参数1直接显示 参数2显示在输入框内
+不写参数2 则输入框内不显示内容
+
+document.write(“”)内容显示在html页面中中
+
+
+
+async=“async”  body内js和外链式异步加载 body没加载完就开始加载外链式
+defer=“defer”  body内js先加载完 在加载外链式
+
+typeof(a) /  typeof a 判断变量数据类型
+
+字符串中加 /n 换行显示
+加/" z中间多个引号 
+
+不使用额外命名将a=10 ;b=20 赋值想交换
+var a=10,b=20;
+a= a+b;
+b=a-b;
+a=a-b;
+console.log(a)
+console.log(b)
+
+var num=20
+var Num=50
+console.log(Num+num) 控制台显示70
+console.log(Num-num) 控制台显示30
+console.log(Num*num) 控制台显示1000
+console.log(Num/num) 控制台显示2.5
+console.log(Num%num) 控制台显示相除的余数10
+字符型+字符型  显示字符内容相连
+数值型+字符   显示数值与内容相连
+“数值 ” 为字符型
+注意（“数值”+数值  显示两数值相连）
+“数值”-数值 显示两数值相减
+“数值”*数值 显示两数值相乘
+“数值”/数值 显示两数值相除
+“数值”%数值 显示两数值除余数
+
+一元运算符
+var num= 10
+num++ （++num） 每出现一次加1
+num-- （--num） 每出现一次减1
+
+num++ 先运算别的自加1  （这个自加1不参与运算） 
+++num 先自加1在进行其他运算
+var a =10
+a++；
+console.log(a++) 显示11 console.log（++a）显示12
+前置和后置一起出现时先算前置在算后置
+一元运算符优先级最高
+
+比较运算符中大于号> 小于号< 等于号== 大于等于>=
+===不仅数值相等而且类型也要相等
+优先级先算大于、小于 在算 ==
+
+逻辑运算符优先级 先算！再算&&最后算||
+
++=、-=、*=、/=每次自加减乘除
+num+=2 每次自加2（2可以变成别的数值）
+
+赋值多个变量 var a=10,b=11,c=12；
+
+Math.pow（2,4）；2的4次方
+Math.round(0.6)； 四舍五入1.0
+Math.ceil(8.8 )；向上取整数9
+Math.floor（8.8）；向下取整8
+Math.abs(-2)；  取绝对值2
+Math.max(1,2,3,4)；  取最大值4
+Math.min（1,2,3,4）； 取最小值1
+Math，random（） 生成一个大于等于0 小于1的随机数
+
+num*=2每次自乘2
+
+typeof 类型转换显示
+字符转换
+1.运算符方法转换字符型（隐式转换）
+ var num = 数值/布林值+“” 自动转换字符型
+
+2.String（） 函数转换（显示转换）
+ var num = String(数值) 转换成字符型
+
+3.toString()函数转换 （无法转换null 和undefined）
+ var demo = 123 ；
+ var test = demo.toString（）；
+ console.log（typeof test）；
+
+字符型转换成数值型
+number（true） 显示为1
+number（flase） 显示为0
+number（null） 显示为1
+number（undefine） 显示为NaN
+1.隐式型 必须变量命名可直接加正负或以下
+var num = “2”
+var re = “2”-0
+console.log（re）
+
+2.利用Number（）  可以不用变量转换
+var num =“2”   num不是很好的数值比如“100岁” 这返还NaN
+var re = Number（num）
+
+3利用parseInt（只认整数其余忽略 若第一个字不是数字则返还NAN）、parseFloat（返只认整数和小数其余忽略）转换成数值型
+var num = “100岁”
+var NUM = parseInt（num）
+console.log（NUM） 返还100为数值型
+
+var re = “我100”
+var RE = parseInt（re）
+console.log（RE）  返还NaN
+
+var doce = “11.22px”
+var DOCE = parseInt（doce）
+var se = parseFloat(doce)
+console.log（DOCE）  返还11 为数值型
+console.log（se）  返还11.22为数值型
+
+转换成布尔型
+ !!转换和 Boorlean（）
+flase、 undefined、 null、 0 、"" 全部为flase
+var num = !!“ ” 为ture （引号中间有空格）
+
+
+if（num <5）{
+	alert("早上好")
+}                                      （如果num<5则显示早上好，否则显示晚上好）
+else {
+	alert（“晚上好”）
+}
+1.if可以只使用if省略else
+2.if后面有小括号加表达式，二else是没有的
+3.表达式里面可以是判断表达式语句是否是布尔值中的ture/flase
+4.如果if和elese里面只有一句执行的话，可以省略花括号，建议都带上花括号
+
+
+多分支if语句
+var num = prompt（“请输入你的成绩”）
+if（num>=90）{
+	alert("你真棒" )
+}
+else if（num>60）{
+	alset("继续加油")                 （一直向下读取直至满足条件）
+}
+else if（num>0）{
+	alset("你不及格")
+}
+else {
+	alset("叫你家长来")
+}
+
+
+switch case 多分支判断语句 （全等比较）
+var a = prompt（“请输入你点的菜名”）
+switch（a）{
+	case空格（“排骨”）：
+	alert（“12块一斤”）；
+	break；				（直接选中然后break输入剩下的不读取）
+	case空格（“羊腿”）：
+	alert（“13块一斤”）；     （注意case后跟空格）
+	break；			     （主语符号必须是英文的）
+	case空格（“烧鸡”）：
+	alert（“14块一斤”）；
+	break；
+	default：
+	alert（“没有这个菜”）
+}
+
+
+三元运算符num？a:b； （有点像if的缩写）
+
+
+循环语句
+循环（循环初始；循环的条件；循环的增量）
+var j = 0 ；
+for（var i = 1 ； i <=100 ； i++）{
+	j = j + i ；
+}
+document.wrte（j）                       （1一直加到100）
+
+
+双重for循环
+document.write("<table>")
+for（var i =1 ；i<=9 ；i++）{
+	document.write("<tr>")
+	for(var j =1 ；j <= i ；j++){
+	document.write（"<td>"+i +“×”+j+“=”+i*j+"</td>"）；         （乘法口决）
+     }
+        documen.write(“<br />”)
+	document.write("<tr>")
+}
+document.write("</table>")
+
+
+ for(var i = 2； i < 100； i++){   
+	 	for(var j=2； j < i； j++){  
+	 		if(i%j==0){   
+	 			break；
+	 		} 				（取质数）
+	 	}
+	 	if(i==j){ 				 (满足第一个if时就将当时i和j的值导入第二个if
+	 		console.log(i)；                  最后同时满足i=j的输出）
+	 	}
+}
+
+
+while 循环
+var i = 1 ；
+var j = 0 ；
+while （i<=100）{
+	j = j + i ；
+	i++ ；
+}
+alert（"fgfdfg"）
+
+do while 循环 （无论是否满足条件至少执行一次）
+var i = 0 ；
+do {
+alert("sdasdasd")；
+i++ ；
+} while （i<3）
+
+
+函数中 实参和形参可以不一致
+多传入实参 多传入的实参因为没有对应接受就作废
+少传入实参 有的形参接收不到 则值变成undefined
+形参只是把实参的值赋值了一份 这而两个参数互不影响
+
+function fun (形参1，形参2 。。。){	 	（形参相当于变量）
+	alert（“函数使用”）			（函数可多次被调用）
+}
+fun （实参1，实参2。。。）           		（隐含把实参赋值给形参）
+fun （实参①，实参②。。。）
+
+函数返回值        （返回到调用它的地方）
+return 之后的不执行
+
+var R = prompt(“请输入圆的半径”)
+function fun （r）{
+	return 3.14*r*r ；
+} 
+var area = fun （R）；
+document.write（area）；
+
+
+
+数组命名
+1.数组函数var arr = new Array（）
+var arr = new Array（5） 5表示数组的length 
+2.var arr = [ ]
+
+arr.length 数组中变量是字符型时每个变量都有arr[].lengtth
+arr.length 数组长度（动态改变的）  索引号为最后个的排号
+var arr =[ ]
+for(var i=0;i<=100;i++){
+	if(i%2！==0){
+	arr [arr.length]=i;    (0到100的奇数放入数组中)
+}
+}
+console.log(arr);
+
+
+
+数组arr.push( )从后面添加元素
+arr.pop（ ）从后面删除元素
+arr.shift（ ）从前面删除元素
+arr.unshift(　）从前天添加元素
+console.log(arr.push( )) 从后面添加元素，返回新数组的长度
+console.log(arr.pop( )) 从后面删除元素，返回删除的元素
+console.log(arr.shift( )) 从前面删除元素，返回删除的元素
+console.log(arr.unshift( )) 从前面添加元素，返回新数组的长度
+
+
+
+var arr = ["关羽","张飞","赵云","马超"，“黄忠”]
+for (var i = 0; i <arr.length ; i++) {
+	console.log(arr[i])
+};
+var Arr = [ ]
+var j = 0;
+for (var a =arr.length ; a>=0 ;a--){
+	Arr[j] = arr[a];
+	console.log(Arr[j])
+	j++;
+};
+
+
+复杂数据类型
+赋值
+var a = new object（）
+a.color = "pink"
+a.chang = 12
+或者a.gao = functon(）{ aler（“15”）}
+或者a.kuan = {  }
+
+break 读取后整个循环全部终止
+continue 读取后continue所在的循环终止但整个外围的大循环仍继续
+
+全局变量 在最外部声明的变量 在哪儿都能使用
+
+局部变量 在函数内部声明的变量 只能在函数内使用 可使用返回值return再能在函数外使用
+
+
+
+man.name =“张三”；
+man[“name”]=“张三”； （使用比较正式）
+两个对象属性表示方法相同 不同在命名中带有_时不带引号命名不成立 带引号的成立
+
+对象属性书写
+var man =new Object（）或var man ={ }
+man.name =“张三”；
+man.age =18;
+
+var man ={
+	name：“张三”，
+	age ：18，
+	shengao: "180cm"
+}
+
+for in循环 函数遍历
+for（var k in man）{
+	console.log(man[k])
+}
+
+
+数组的反转arr.reverse()
+
+
+var arr =["a","b","a","d","a"]
+
+数组中元素的位置
+var arr = [5,60,2,0,3,0,4,7,0,6,0,5]
+var index =-1;
+do{
+	index =arr.indexOf(0,index+1);
+	console.log(index);
+}while(index !==-1);
+
+
+
+数组中元素出现的次数
+var arr = ["a","b","c","a","b","b","c","a","b","b","a","c"]
+	var o ={}
+	for(var i=0;i<arr.length;i++){
+		var num =arr[i];
+		if(o[num]){
+			o[num]=o[num]+1;
+		}else{
+			o[num]=1;
+		}
+	}
+	console.log(o)
+
+
+
+从数组中找出某一元素第一次出现的位置
+var arr=["c", "a", "z", "a", "x", "a"]
+console.log(arr.indexOf(“a”))       从前数数组中第一个“a”出现时的索引
+console.log(arr.lastIndexOf(“a”))   从后数数组中第一个“a”出现的索引
+console.log(arr.indexOf(“a”，2))    从索引2开始数a第一次出现时的索引
+console.log(arr.indexOf(“a”，6))    返回值为-1
+
+var index=0； 每一次出现时的索引
+do{
+	index =arr.indexOf(“a”，index+1)
+	console.log(index)
+}while（
+	index!==-1;
+）
+
+
+console.log(arr.slice(0,2)) 从索引0开始取出到索引2结束（取不到） 对数组没有影响
+console.log(arr.splice(0,2)) 从索引0开始取出2个  对原数组有影响
+arr.splice(0,2,"a","b"，“c”“d”) 从索引0开始删除2个 把a bcd加入数组
+console.log(arr) 原数组删除了第1，第2项加入a，b，c，d
+
+
+
+数组的迭代方法
+var arr =[1000,1100,1200,1300,1500,2000]
+var num =arr.filter(function(element（元素）,index（索引）,array（整个数组）){
+	console.log(element) 返还数组中的所有元素
+	console.log(index)   返还数组的索引
+        console.log(array)   返还整个数组
+	if(element>=1500){	
+		return false	返还小于1500的值得数组时
+		}
+		return true
+	}
+	)
+console.log(num)
+
+
+
+数组的转换
+valueOf()  返回数组对象本身
+toString()  把数组转换成字符串
+join（）   把字符串的每一项进行拼接可以“ ”或“-”。。。
+
+  

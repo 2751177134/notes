@@ -1,0 +1,4 @@
+let不存在变量提升现象，只在let命令所在的代码块有效，（不允许在同一作用域重复声明变量）
+    {var a=100;let b=200} console.log(a)==>100;console.log(b)==>b没有意义（报错）
+只要块级作用域内存在let命令，它所声明的变量就绑定了这个区域，let以上区域无法获得声明的变量的值，且也不受外部的影响
+    {console,log(a);let a=100;console.log(a)}  ==> undefined   100

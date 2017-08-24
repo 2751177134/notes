@@ -1,0 +1,84 @@
+Trident (IE内核)
+
+Gecko （Firefox内核）
+
+Weblit (Safari内核 Chrome内核的原型)
+
+Blink (Google内核)
+
+Presto (Opera前内核)
+
+注意连写 连写中未写出的属性是默认属性往往会将前面写的相同属性覆盖掉 
+
+行内块书写换行时往往生成网页内行内块之间有间隙 解决方法不换行直接连写 
+
+去除input蓝色边框的属性outline：none；
+
+滑动门样式背景a：hover{   }
+	      a:hover span{   }
+
+
+多个盒子边框重叠时边框颜色显示问题如下
+1.div{  width:100px;
+	height:100px;
+	border:1px solid #e1e1e1;    (当盒子没有设置定位时)
+	margin-left:-1px；
+	}
+  div:hover{
+	border:1px solid red;
+	position:relative;
+	}
+
+2.div{  width:100px;
+	height:100px;
+	border:1px solid #e1e1e1;    (当盒子设置定位时)
+	margin-left:-1px；
+	position:relative;
+	}
+  div{  border:1px solid red;
+	z-index:1;
+	}
+
+网页名称前的小图标
+<link rel="shortcut/icon" href="favicon.ico" />
+小图标命名一般都用favicon.ico 
+
+
+logo加链接加语义化.
+.logo{  width:100px;
+	height:50px;
+	}
+.logo a{display:block;
+	height:50px;                
+	tex-indent:-9999px;
+	}
+<html>
+<div class="logo">
+	<h1><a href="#" title="网页名 ">网页名</a></h1>
+</div>
+
+
+word-break:normal;   正常换行
+	  keep-all ; 一般不换行遇空格换行
+	  break-all; 允许单词内换行
+
+letter-spacing 字间距
+word-spacing  单词间距
+
+white-space:normol; 正常文本空格、空行无效 ，满行后自动换行
+	    pre；   预格式化，按文本中书写的样式显示（原文本怎么写的怎么显示）
+	    nowrap； 空格空行无效，强制文本不换行，除非遇到<br />
+
+text-overflow:clip; 不用省略标记（...）表示对象内文本溢出
+	      ellipsis； 当对象内文本溢出时用省略标记（...）
+ 
+div{white-space:nowrap;强制一行显示                 
+    overflow:hidden;  产出部分隐藏                    （ 三个属性一起用 缺一不可）
+    text-overflow:ellipsis；超出部分用省略号显示
+
+
+
+BFC具有宽高 有margin padding
+块级元素具有BFC
+
+外边距合并 可以给上一个盒子加overflow：hidden；

@@ -1,0 +1,70 @@
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+
+.addEventlistener("touchstart",function{})   事件对象必须有宽高值
+.addEventListener("touchmove",function{})
+.addEventListener("touchend",function{})
+.addEventListener("touchcancle",function{})  触摸意外中断事件
+
+clinetX相对点击位子到当前的视口 移动屏幕
+
+
+pageX相当于当前内容的最左端到点击位子的距离 有水平滚动条 
+
+
+
+移动端一般没有水平滚动条 所以pageX()和clientX（）相等
+
+e.targetTouches[0]  获取当前第一次触摸时的对象
+e.changeTouches
+e.traget  获取触发事件的对象
+document.target   
+
+e.touches 屏幕的手指
+e.targetTouches  元素对象
+e.changeTouches  触摸状态改变事件对象；
+e.target  导致事件触发的html元素
+
+addEventListener("webkitTransitionEnd",function(){})    过渡效果执行完毕监听事件 
+
+
+@media screen /all and (min-width: px){  在pc和移动端宽度改变样式
+	body{      }
+}
+
+min-device-width  在移动端响应设备宽度改变样式
+
+容器
+ .container 固定宽度响应式布局 左右两边有外边距
+ .container-fluid 全屏显示
+容器与容器之间不能相互嵌套
+
+col-xs-  特小屏<750px	
+col-sm-  小屏  750-970
+col-md-	 中屏 970-1170
+col-lg-  大屏 >1170
+
+.col-xs-offset-  偏移值相当于margin
+.col-xs-push-    往右定位 relative（left改变）
+.col-xs-pull-    往左定位
+
+.hidden-xs    当前屏隐藏  display：none；
+ 
+em   当前节点的字体大小
+rem  当前跟节点（html）字体大小
+
+less引入less文件  @import‘base.less’
+
+
+touch事件 只能在移动端使用且有延迟
+$().on('tap',function(){}) 只能在移动端使用
+click事件   移动端和pc端都可以使用 但在移动端有延迟
+
+解决方法
+$(function() {         （应用zepto中的fastclick.js）
+        FastClick.attach(document.body);
+    });
+tap.addEventListener("click",function(){})
+click.addEventListener("click",function(){})
+
+

@@ -1,0 +1,233 @@
+1>如果对象不存在，则直接使用对象来完成
+2>如果对象不存在，则自己实现完成。这个就是面向过程
+3>如果对象不存在，我使用面向对象的方式进行开发，那第一次是面向过程，第二次以后就是面向对象
+4>面向才是具体的实现，面向对象只是对面向过程的一个封装
+
+创建对象的方式（3个主流方式）
+1 )字面量 ：有数据值，有类型的量
+123   ，  “aaa" ，【】，{ }
+
+2 )工厂函数
+function createperson（）{
+	var o={ }
+	.............
+	returnn o;
+}
+createperson(  )
+
+3 )构造函数
+首字母大写，按此用语法new构造函数名（），调用函数后返回新创建的对象，构造函数内部使用this来表示创建对象，提供属性 this.xxx=123 ，不用return
+function Person（name，age）{
+	this.name=name；
+	this.age=age;
+	this.yyy = function{
+		console.lo("hello")；
+	}
+}
+var p =new Person("jiji","18")
+
+对象特性
+1.继承性
+原来已经有一个对象，在其基础上有增加一些东西得到一个新的对象，此时这个新对象就是继承自原来的对象
+
+2.抽象性
+再具体的环境下对象才可以表示具体的事物，而在程序设计中实际只考虑对象的目标数据
+
+3.封装性
+将具体的操作步骤打包起来，name不需要知道内部如何处理，多么复杂，只需要知道怎么使用
+
+4.多态性
+一个变量调用某一方法，得到不同的结果
+
+基本数据类型：number 布尔型 string；
+复杂（引用）数据类型；【】 {  }   function（）{  }  ；
+空类型：undefined   null  ;
+
+基本数据类型的变量存储数据本身，在内存中开辟一段内存，这个内存就是num，里面存储的就是变量
+引用类型的变量只是存储对象的引用（地址），真正的数据存储在以单独的内存中
+
+参数传递的特征
+         在赋值过程中  值类型与引用类型的区别
+	值类型：在赋值的时候在数据取出拷贝一份，然后将拷贝的结果存储到另一个变量中，其中一个变量存储的数据改变，但不会影响另一个内容；
+	引用型：赋值时跟值类型相似，但变量中存储的是对象的引用（地址），当多个变量引用一个地址时，其中一个将引用内容改变 ，则其他变量引用出的内容一起改变；
+
+浅拷贝 只拷贝当前对象，不拷贝对象中引用的其他对象
+深拷贝 将所有的对象全部拷贝，在内存中两个对象完全独立‘
+function deepclone （obj）{
+	var o={ };
+	for( var k in obj ){
+		if( typeof obj[ k ]==" object"){
+			o[ k ]=deepclone(obj[ k ] )
+		}else{
+			o[ k]=obj[ k ]
+		}
+	}
+	return o ; 
+}
+
+
+function Person( ){ }
+Person.prototype.name=....   函数原型内容添加
+Person.prototype={   }   函数原型替换
+person.prototype.constructor   构造函数本身
+var p =new person（）
+
+var newObj=Object.creat(某一函数)    创建函数原型
+
+构造函数所使用的成员为静态成员
+构造方法创造出的对象所使用的成员为动态成员
+
+函数的length属性
+	函数作为 对象有一个length属性，值为定义函数的形参个数
+arguments 就是参数的复数形式，存储的就是传入的参数的集合 （伪数组)
+判断传入的参数是否与形参个数相等
+length===arguments.length
+
+eval函数可以将一个字符串做为一段js代码来使用 
+new Function("参数",....,"参数","方法体")可以将一个字符串做为一段js代码来使用 
+var func=new Function("a","b","return a+b")  返回a+b
+
+原型式继承：对象自动的链接到原型对象中，而使用远行对象中所提供的成员（一般在编写代码时都将数据（字段，属性）定义在构造器中，将方法定义在原型中）
+混入继承：将一个对象中的成员遍历一边，一次加入到另一个对象中，那另一个对象就具有了这个对象的功能，从而实现继承（一般封装在max或extend函数中）
+
+自己定义的一个函数（任意函数），可以知道函数的constructor就是Function
+函数就Function的实例
+
+Object.__proto__==Function.prototype               __proto__实例对象访问原型
+在实际构建对象的时候，扩展实例成员，一般使用 原型增加方法的形式（原型继承）
+一般使用的时候利用 构造函数.prototype  来添加，不要使用 实例对象.__proto__来添加
+
+o1 instanceof Func
+判断Func.prototype是否在o1 的原型链上
+
+花括号也是语句块
+块级作用域  指定义开始到变量所在语句结束 所在的范围
+子可以访问父块  父块不能访问子块
+如果子快中含有与父块同名的变量，那么会在定义该变量的时候隐藏父块中变量
+在子块中操作变量是在操作子快中的定义的数据，不会影响到父块中的变量。超出子块作用域后父块中定义的变量就又可以使用
+      {           let num =123;    num从定义开始到 花括号结束都可以被使用  （定义前和超出花括号后都不可被使用）
+	console.log( num )                  }
+
+{    {   let num =123;   }            
+          console.log( num )       }
+
+预解析
+1.》在预解析的时候需要检查基本语法
+2.》在当前作用域中检查所有的变量名声明。var 就是变量声明的标志
+就是在此时在运行环境中就已经记录了有什么变量（变量名提升）
+3.》在预解析的过程中记录含有的函数声明。如果不是函数声明，那么是不会被记录的
+function foo（）{  }  只有这种函数声明才会被记录
+var func=function （）{  }   函数表达式
+Function 构造函数
+声明函数不可放入if，while，for，{ }。。。中，否则无法进入预解析并报错
+将函数放入花括号中，函数就变成函数表达式
+特例  函数中套函数，则内部函数仍然是函数声明
+
+函数表达式中函数命只能在函数内部使用
+                      
+闭包   在函数中定义的变量无法再外界直接被访问，而函数具有包裹作用的
+未绑定到特定对象的代码组成的语法块（含有的自由变量的语法结构）
+
+访问闭包内的数据
+1.>返回值
+function foo( ){
+        var num=111;
+        return num;
+}
+2.> 返回一个对象 返回一个函数
+function foo（）{
+       var num =123；
+       function tm （）{
+                 return num；
+        }
+        return tm ；
+}
+
+函数的四种调用模式
+1.)函数调用模式
+分辨：函数调用没有任何引导数据，就只有一个函数名来调用；
+在函数调用模式中 this表示全局对象 （在浏览器中就是window）
+function foo() {
+     console.log(this)    //this就是window
+}
+
+2.)方法调用模式
+分辨:方法调用模式一定要有一个对象，是对象引导方法来调用的
+在方法模式中this表示引导对象（当前对象）
+var fo={ name:'jim' };
+fo.func=foo ;
+fo.func();
+
+3.）构造器调用模式
+分辨：方法在调用的时候 前面有一个new关键字移到
+在方法中this的含义就是刚被创建的对象；
+   在构造函数中使用return 可以结束构造函数的执行 直接将当前的this直接返回 
+   return 后面跟的是一个基本数据类型或空类型 下面的代码无效
+   return后面跟一个引用类型对象，那么调用构造函数就返回该数据，创建出的对象就被抛弃
+
+4.）上下文调用模式
+  允许调用者控制函数中的this的含义 上下文就是环境，依托的对象
+  上下文调用有两个方法可用
+    1.apply
+	如果函数需要提供参数，apply方法的第一个参数用于指定函数中的this的含义
+	如果第一个参数传入的是 null或undefined，那么this   就window	
+	如果第一个参数传入的是基本数据类型（值类型），那么会将之乐性转换成对应的包装类型， this指向包装对象
+	如果第一个传入的是对象，this就指向这个对象
+
+	apply 方法的第二个参数是一个数组, 里面包含需要传给函数的所有参数
+    2.call
+	如果函数需要提供参数，call方法的第一个参数用于指定函数中的this的含义
+	如果第一个参数传入的是 null或undefined，那么this   就window	
+	如果第一个参数传入的是基本数据类型（值类型），那么会将之乐性转换成对应的包装类型， this指向包装对象
+	如果第一个传入的是对象，this就指向这个对象
+
+	call 方法的第二个参数, 以及其他参数分别表示需要传入函数的各个参数
+
+    相同点：两个而方法都在指定函数中this是只想什么对象
+   
+ 例：function Foo() {
+        getName=function () {console.log(1)}
+        return this;
+    }
+    Foo.getName=function () {console.log(2)}
+    Foo.prototype.getName=function () {console.log(3)}
+    var getName=function () {console.log(4)};
+
+    Foo.getName();            //2
+    getName(); 		      //4
+    Foo().getName();	      //1
+    getName();		      //1
+
+    new Foo.getName();        //2
+    new Foo().getName();      //3
+    new new Foo().getName();  //3
+分析
+Foo.getName() 调用Foo中getName：function，Foo中没有就找到Foo.getName  
+
+getName() 调用函数getName（）
+
+Foo().getName() 先调用函数Foo（）返回window对象 即function Foo（）{}然后执行对象中的getName（console.log(1)）
+
+getName（）    getName=function（）{console.log（1）}
+
+new Foo.getName()
+ function Xfoo(){
+	getName:function(){console.log(2)}
+	}重新new一个对象还是打印2  
+
+new Foo().getName()
+ new Foo()=function Foo(){
+	getname=function(){console.log(2)}
+	} 
+找不到成员getName：function 就去原型中找Foo.prototype.getName=======3
+
+new new Foo().getName()
+ new Foo().getName() = function Xfoo(){
+     			getName:function(){console.log(3)}
+			}
+ 
+
+4.）bind模式
+如果说使用apply或call实在调用的时候指定this的含义，那么bind就是在调用之前指定this的含义
+函数.bind(对象) 
+

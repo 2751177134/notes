@@ -1,0 +1,539 @@
+<div id="app" v-cloak>  （解决表达式闪烁）  在style中写入【v-cloak】{display：none；} 和angular中ng-cloak原理相同
+  //在Vue接管的区域使用vue的系统指令呈现数据 这些指令就相当于是mvvm中view角色
+  {{name}}
+  <span v-text="name"><span>     //解决表达式闪烁  （会将符合标签格式的字符当做纯文本）
+  <span v-html="name"><span>     //解决表达式闪烁  （会将符合标签格式的字符解析成标签）
+
+  <button v-on:click="change"></button>   //事件注册 （简写@click=“”）
+
+  <input type="text" v-bind:value="id">                  //v-bind: 动态绑定id属性值(可省略v-bind只写：)
+  <a v-bind="{href:'http://www.baidu.com/index/'+id}">挑转</a>
+
+  <div :class="{red:isRed}"></div>                       //动态绑定类名red 
+  <div :class="[classA,classB]"></div>                   //动态绑定多个类名
+  <div :class="[classA,{classB:isB,classC:isC}]"></div>  //选择绑定多个类名
+
+  <div :style="{font-size:size+'px'}"></div>             //动态绑定style中属性值
+
+  <div :style="styleObj"></div>                          //动态绑定对象
+  <div :style="【styleObj1,styleObj2】"></div>           //动态绑定对个对象
+
+  <ul>  遍历数组
+     <li v-for="（index,item) in arr">{{索引index}}{{item}}</li>               //Vue1.0写法(了解)
+     <li v-for="（item,index) in arr">{{索引index}}{{item}}</li>               //Vue2.0写法
+     <li v-for="（item,index) in arr"：key="index">{{索引index}}{{item}}</li>  //2.0数组中有重复项时使用
+	遍历对象
+     <li v-for="（index，key) in Obj">{{键key}}{{item}}</li>    //Vue1.0（了解）
+     <li v-for="（key,index) in Obj">{{键key}}{{item}}</li>     //Vue2.0
+  </ul>
+
+  <form @submit.prevent action="">  //阻止默认提交事件发生（这个submit为默认事件）
+	<input type="submit" @click="submit">  //这个submit是事件名
+  </form>
+</div>
+
+<script>
+   //vm 叫做mvvm中的view model
+   var vm = new Vue({
+	el:"#app",   //表示当前vue对象接管id=app的div区域 （也可以使用class）
+	data：{      //date中定义的是vue实例中所有属性
+	    name：“黑马程序员”，  	//相当于是mvvm中的model这个角色
+	    text:"<h2>我是程序员<h2>"，
+	    id："123"，
+	    isRed：true,
+	    classA:"blue"，
+            classB:"green"，
+	    classC:"gray"，
+	    isB:true,
+	    isC:false，
+	    size:20,
+	    styleObj：{
+	       color："#fff",
+               padding:"30px"
+	    }，
+	    arr：【1,2,3，5,6】，
+	    user:{
+	      usename:"ppt"
+	    }
+	    
+	}，     （注意是 ，不是 ；或不加）
+	methods：{
+	   change:function(){  //实例对象就是vm
+ 	      this.name+="1";
+	   }
+	}
+   })
+</script>
+
+v-medol="name"   双向数据绑定  
+.trim 自动取消首尾空格 
+.number 自动检测数值型进行运算（Vue2.0的书写方式）
+<input type="text" v-medol.trim="name">
+<input type="text" v-medol.number="age">
+
+v-if和v-show都能实现对一个元素的隐藏和显示操作。但v-if是将这个元素添加或者从DOM中删除 v-show只是依靠样式显示隐藏，不会删除
+v-if效率低，会赵成页面结构重心绘制 v-show：true
+
+angular双向数据绑定原理 ：
+好似有个定时器每隔一段时间就自动遍历一下查看有没有属性值改变，当页面中属性值改变，就会调用$watch事件去监听所有指令，查询出有需要的改变值，然后调用$apply放法进行DOM更新
+
+Vue双向数据绑定原理
+利用Object.defineProperty()中set方法监听数据的写操作（设置属性的操作），此时就去更新DOM
+
+findIndex会对数组进行遍历 ，item表示的是数组中的每一个随机项，同事每一次遍历都会执行回调函数
+执行过程中判断当前是否满足，如果满足则结束遍历，同事返回当前满足条件放入元素的索引
+var index =this.list.findIndex（function（item）{return item.id==id}）
+
+
+Vue1.0自定义私有过滤器
+<div>{{time | datefmt}}</div>	
+new Vue（{
+  el:"#app",
+  data:{
+    time:new Date()
+  },
+  filters:{
+     //在某一个vue对象定义的过滤器只能在当前vue对象中使用
+     datefmt:function(input){
+	//input是自定过滤器的默认参数，input的值永远都是取自于|左边的内容
+        var res="";
+	var year=input.getFullYear();
+	var month=input.getMonth()+1;
+	var day =input.getDate();
+	res=year+"-"+month+"-"+day;
+	return res;
+     }
+  }
+}）
+
+
+自定义全局过滤器
+   ///定义到Vue实例对象的原型中了 所以才会全局使用
+<div>{{time | datefmt "yyy-mm-dd" true}}</div>          //Vue1.0
+<div>{{time | datefmt("yyy-mm-dd",true)}}</div>         //Vue2.0
+Vue.filter("datefmt",function(input，formatstring，istrue){
+    var res="";
+    var year=input.getFullYear();
+    var month=input.getMonth()+1;
+    var day =input.getDate();
+    if(formatstring=="yyyy-mm-dd"){
+	res=year+"-"+month+"-"+day;
+    }else{
+	res=year+"-"+month+"-"+day+"03:28:16";
+    }  
+    return res;    
+})
+new Vue({})
+
+自定义修饰符
+Vue.directive("on").keyCodes.f2=113;    //Vue1.0
+Vue.config.keyCodes.f2=113;             //Vue2.0
+
+1.0自定义属性指令
+Vue1.0中提供一个Vue.directive(自定义指令名称，回调函数)来提供程序员自定义指令
+注意：在定义指令的时候不需要加V-前缀，但在使用的时候必须加v-前缀
+<input type="text" v-color="color1">     //添加字体颜色样式
+Vue.directive（"color",function(){
+    this.el.style.color=this.vm[this.expression]
+    //this代表当前自定义的指令对象
+    //this.el当前指令的DOM元素对象(input)
+    //this.expression当前属性指令的属性值（属性指令等号右边的表达式）
+}）
+
+2.0自定义属性指令
+Vue.directive("color",{
+   inserted:function(el,binding){
+	//binding.value  指令后面所跟的表达式的值
+	//binding.expression  指令后面所跟的表达式
+	el.style.color=binding.value;
+   }
+})
+
+
+ajax请求  （get请求）
+<script src="vue221.js"></script>
+<script src="vue-resource121.js"></script>
+<div id="app"><button @click=“getdata”>请求</button></div>
+{{obj}}
+<script>
+new Vue({
+  el:"app",
+  data：{
+     obj：null，
+  }，
+  created:fucntion(){       //发送请求一般都写在这个方法中
+     this.getlist();
+  }，
+  methods:{
+     getdata:function(){
+	var url='http://139.199.192.48:8888/api/getprodlist'+"需发送的数据";
+	this.$http.get(url)   //发送请求
+	.then(function(response){     //resopnse.body就是获取的相应数据，格式为对象
+	   this.obj=response.body;
+	})
+     }
+  }
+})
+</script>
+
+post请求
+postdata:function(){
+     url="'http://139.199.192.48:8888/api/addproduct'",
+     this.$http.post(url,{name:"benchi"},{emulateJSON:true})
+     .then(function(response){
+        alert(response.body.message)
+     })
+}
+
+json请求
+new Vue({
+   el:'#app',
+   data:{
+      obj :null
+   },
+   methods:{
+      getjsonp:function(){
+        // 利用vue-resource中的jsonp方法实现跨域请求数据，这里注意的是
+	// url后面不需要跟callback=fn这个参数了，jsonp方法会自动加上
+	this.$http.jsonp('http://vueapi.ittun.com/api/jsonp')
+	.then(function(response){
+	// 将服务器中的数据获取赋值给obj
+	    this.obj = response.body;
+	})
+      }
+   }
+});
+为什么存在jsonp请求？
+浏览器存在同源策略：在浏览器发送请求的过程，会检查当前发送请求的URL地址和当前发送请求所在的网页地址是否同协议同域名同端口，如果三者一致，则请求可以发送成功，如果不一致，则请求不能发送
+
+jsonp跨域请求的原理
+1.动态创建一个script标签
+2.将发送的URL地址拼接到script的src属性中，然后在URL地址后面拼接上一个回调函数名fn
+3.后台接收到请求会检查当前请求是否是json请求，如果是会将需要返回给客户端的数据进行封装echo fn+（“需要返回的数据”）
+  然后返回客户端
+4.客户端接收到数据会把字符串转成js带去执行，相当于去调用该函数，那么真实数据就在函数的参数中response
+5.删除script标签
+
+CORS跨域：跨域资源共享
+只需要后台在请求头中添加允许跨域的信息即可，客户端不需要修改任何代码
+
+
+Vue的生命周期函数
+created:fucntion(){       //发送请求一般都写在这个方法中
+  this.getlist();         //data和emthods中数据初始化完毕触发
+}
+mounthed:function(){  }   真实DOM结构渲染完毕后执行
+
+updated：function（）{  }   data中的数据定义的数据发生变化时执行可以检测数据变化，然后执行
+
+
+vue动画
+  //.show-enter-active,.show-leave-active在整个动画过程中都存在于元素上面
+  //transition:all 1s ease;必须写在这个上面才能持续作用于元素，才能禅城哦动画效果
+.show-enter-active,.show-leave-active{
+   transition:all 1s ease;
+}
+ //.show-enter标记动画开始的位置为padding-left：100px；
+ //.show-enter-to标记动画进入后的位置为padding-left：10px；
+ //.show-leave标记动画离开时的位置为padding-left：10px；
+ //.show-leave-to标记动画离开后的位置为padding-left：100px；
+.show-enter,.showm-leave-to{
+  transition:padding-left:100px;
+}
+.show-enter-to,.showm-leave{
+  transition:padding-left:10px;
+}
+<transition>
+   <span >wqewqeqw</span>
+</transition>
+
+
+方法1.0定义全局组件
+<div id="app">
+   <login></login>
+</div>
+var login=Vue.extend（{
+   template：“<h1>123</h1>”
+}）
+Vue.component("login",login)  //注测组件
+
+方法2.0定义一个全局组件
+<div id="app">
+   <resiter></resiter>
+</div>
+Vue.component（“register”，{
+   template:"<h1>123</h1>"
+}）
+
+方法3.0 定义一个全局组件
+<template id="account">
+   {{msg}}
+   <a href="#" @click="login">登录</a>  |  <a href="#">注册</a>
+</template>
+Vue.component("account",{
+   template:"#account",
+   data:function(){    //在组件中使用data定义的是一个方法而不是一个对象，否则无效果（保证组件之间的data都相互独立不影响）
+     	return {
+	   mas:"账户组件页面"
+	}，
+   methods:{      //组件中的方法
+	login:function(){
+	   alert("login")
+	}
+   }
+})
+
+全局组件中定义子组件
+  <div id="app">
+      <account></account>     //对应全局组件
+      <login></login>         //对应Vue中添加的子组件
+  </div>	
+  Vue.component（“account”,{
+     template:"<div><h1>账号组件</h1> <login></login></div>"，   //在Vue2.0中注意用div包裹   
+     components:{
+	"login":{
+	     template:"<h2>字组件</h2>"
+	 }
+     }
+  }）
+  new Vue（{
+    el：“app”，
+    components:{
+	"login":{
+	   template:"<h3>Vue中添加子组件</h3>"
+	}
+    }
+ }）
+1.new Vue也会是个组件，这个组件的模板就是该实例的托管区域
+2.组件内部定义数据data属性是一个方法，方法内部返回一个对象
+3.子组件定义在templates属性内部，子组件的使必须写在父组件末班中
+4.vue2.0组件模板内部的代码必须写在一个根元素内部（通常都使用一个div包裹起来）
+
+
+将父组件中属性传入子组件
+<template id="sub">
+  <div>{{message}}</div>   //注意添加根元素
+</template>
+<div id="app">
+   //通过父组件中调用子组件的时候利用：绑定对应的props中定义的参数在将值传递给子组件即可
+  <sub：message="name"></sub>        //vue1.0中sub可随便写，但在vue2.0中因为sub关键字原因 sub在这里不可使用
+</div>
+<script>
+new Vue({        //可以认为对象就是一个根组件
+  el:"#app",
+  data:{ name:100},
+  components:{
+     "sub":{                //子组件名
+  	template:"#sub",    //子组件
+	props：[“message”]   //负责接收父组件传入的值
+     }
+  }
+})
+
+
+子组件向父组件传递数据
+<template id="sub">
+    <button @click="senddata">发送数据1</button>
+</template>
+<div id="app">
+    <sub v-on:send="getdata"></sub>
+</div>
+<script>
+new Vue({
+   el:"#app",
+   methods:{
+       getdata:function(input){
+           console.log(input)
+       }
+   },
+   components:{
+       "sub":{
+           template:"#sub",
+           methods:{
+              senddata:function(){
+                  this.$emit('send','hello');
+              }
+           }
+        },
+   }
+})
+1.0在子组件中触发this.$emit(“消息名称”，“消息携带的数据”)进行消息发布
+2.0在父组件中使用子组件时 需注册一个跟子组件消息名称一致的事件，同时给定一个事件处理函数，这个事件处理函数是父组件中进行定义
+3.0消息所携带的数据就在事件处理函数的参数中
+
+
+vue获取dom元素、组件对象  （一般不用框架直接获取dom元素）
+  <div id="app">
+        <button @click="getDom">获取dom对象</button>
+        <div ref="mydiv" id="div1">hello word</div>
+        <button @click="getcom">获取组件对象</button>
+        <div ref="mycom" id="div2">获取组件对象</div>
+  </div>
+  <script>
+        new Vue({
+            el:"#app",
+            methods:{
+                getDom:function(){
+                    console.log(this.$refs.mydiv.innerHTML)
+                },
+                getcom:function(){
+                    console.log(this.$refs.mycom.subname)   //subname可随便取（表示组件名），与组件中data的subname对应
+                }
+            },
+            components:{
+		'login':{
+		      data:function(){
+			   return {
+				subname:'子组件名称'
+			   }
+		      },
+		      template:'<h1>这是一个子组件</h1>'
+		}
+	   }
+       })
+
+
+Vue路由使用  (在引入vue.js后引入vue-router231.js)
+<div id="app">
+    <router-link to="/login">登录</router-link>	//2.0 定义导向不同的路径 
+    <router-link to="/register">注册</router-link>
+    <router-view></router-view>		// 不同的路径渲染出来的组件内容展示到router-view中 
+</div>
+<script>
+var app = Vue.extend({}); 	// 1.0 定义根组件
+var login = Vue.extend({	// 2.0 定义登录和注册这两个组件
+    template:'<div>登录组件</div>'
+});
+var register = Vue.extend({
+    template:'<div>注册组件</div>'
+});
+var router = new VueRouter({	 // 3.0 定义vueRouter对象并且定义好路由规则清单
+    routes:[
+	{
+	   path:'/login',  	//路由规则的路径
+	   component:login
+	},
+	{
+	   path:'/register',  	//路由规则的路径
+	   component:register
+	}
+    ]
+});
+new Vue({		// 4.0 在vue对象中绑定router对象
+    el:'#app',
+    router:router
+});
+
+
+嵌套路由总结
+1.定义路由规则清单的时候，children下面的路由规则path中的文本字符串不需要加/的，否则无效
+2.嵌套路由的上层组件中国的path要加/ ,并且template中要增加<router-view></router-view>
+3.修改<router-link to="/上层路由 path/子组件路由path">
+<div id="app">
+    <router-link to="/count/loginer">登录</router-link>
+    <router-link to="/count/register">注册</router-link>
+    <router-view></router-view>       //这句话必须书写 对应下方组件，起到站位的作用
+</div>
+<script>
+    var app=Vue.extend( {template:"<div>嵌套路由<router-view></router-view></div>"} );     //子组件嵌套
+    var login=Vue.extend( {template:"<div>登录组件</div>"} );
+    var register=Vue.extend( {template:"<div>注册组件</div>"} );
+    var router=new VueRouter({
+        routes:[{
+             path:"/count",
+             component:app,
+             children:[                //子路由
+                 {
+                     path:"loginer",
+                     component:login    //注意嵌套路由子路由必须去掉/ ,否则无效
+                 },
+                 {
+                     path:"register",
+                     component:register
+                 }
+             ]
+        }]
+    })
+    new Vue({
+     	el:"#app",
+        router:router
+    })
+
+
+路由参数
+  总结：
+  1、在路由规则的path中定义一个/:参数名称
+  2、在<router-link to 中写上真正的参数值
+  3、在 $route.params中根据上面第1步中的参数名称获取到值
+<div id="app">
+    <router-link to="/login/rose">登录</router-link>		 2.0 定义导向不同的路径 
+    <router-link to="/register/ivan">注册</router-link>
+    <router-view></router-view>
+</div>
+<script>
+var login = Vue.extend({      	// 定义登录和注册这两个组件
+    template:'<div>登录组件{{val}}</div>',
+    data:function(){
+	return{
+	   val:''
+	}
+    },
+    created:function(){    	// 接收参数的方式
+	this.val = this.$route.params.name1;
+    }
+});
+var register = Vue.extend({
+    template:'<div>注册组件{{this.$route.params.name2}}</div>'     //内容简单时可简写
+});
+var router = new VueRouter({		//定义vueRouter对象并且定义好路由规则清单
+    routes:[
+	{
+	    path:'/login/:name1',  	//路由规则的路径
+	    component:login
+	},
+	{
+	    path:'/register/:name2',  //路由规则的路径
+	    component:register
+	}
+    ]
+});
+new Vue({
+    el:'#app',
+    router:router
+});
+
+
+watch监视
+var router = new VueRouter({
+   routes:[
+	{path:'/',redirect:'/login'},
+	{path:'/login',component:login},
+	{path:'/register/:name1',component:register}
+   ]
+});
+new Vue({		
+   el :'#app',
+   router : router,    //开启路由对象
+   watch:{
+      '$route':function(newroute,oldroute){
+	    console.log(newroute,oldroute);
+	// 将来就可以在这个函数中获取到当前的路由规则字符串是谁了
+	// 那么就可以针对一些特定的页面做一些特定的处理
+	}
+   }
+});
+
+computed:{     //计算属性的特点，通过计算的来的属性
+    fullName:function(){
+	return this.firstName + this.lastName;
+    }
+}
+computed会对数据进行缓存，如果内部依赖数据没有发生变化 后续使用计算属性直接从内部取出来 ，不会重新计算
+watch每一次使用都会重新执行属性对应的函数 ，计算属性值
+
+Vue中三个定义数据（属性）的方法 data  props  computed
+
+
+
+
+

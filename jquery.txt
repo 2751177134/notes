@@ -1,0 +1,147 @@
+jqueryh转为dom对象
+.get(0)
+$()[0]
+
+获取类名$(".类名"）
+在addClass("类名")  类名不加点
+.addClass("类名").addclass("类名2")
+
+mouseenter(不会冒泡) =mouseover  
+mouseleave（不会冒泡）=mouseout
+
+.end() （恢复到断链，相当于往前找到当前元素） 加在断链位子  
+$(this).preAll().css("background","blue").end().nextAll().css("background","red")  (end()相当于回到this)
+
+
+
+addClass("类名1  类名2")
+.hasClass("类名")  判断元素有没有这个类名 返回true 或false
+
+
+.removeClass("类名")
+.removeClass()  移除元素中所有的类名
+.toggleClass("类名")   切换类名（有和无）
+
+.css("属性"，“属性值”)
+.css("属性"，“属性值”).css("属性"，“属性值”)
+.css({"属性":“属性值”,"属性":“属性值})
+
+next()获取当前元素的下一个兄弟元素
+nextAll() 获取当前元素后面的所有的的兄弟元素
+pre（）获取当前元素的上一个兄弟元素
+preAll（）获取当前元素前面的所有的的兄弟元素
+siblings（） 获取当前元素所有的的兄弟元素
+
+.hide(毫秒) 缓慢隐藏 ("slow" "normal" "fast")大小也在变 （可加多个参数） 
+.show(毫秒) 缓慢显示（"slow" "normal" "fast"）
+.last（“”）最后一个
+arguments.callee  执行当前函数（递归） 
+
+.slideUp 向上滑入
+.slideDown 向下滑出
+.slideToggle  划入滑出的切换
+
+.fadeIn（）  淡入
+.fadeOut（） 淡出
+.fadeToggle（）
+.fadeTo（毫秒，透明度）
+
+
+.animate({   },毫秒，function(){   })
+
+
+stop()  停止动画 （ 放在动画事件前）
+$（this）.children（）.stop（）.hide（）
+
+
+$（“div”）.append("<a href=''></a>")  添加元素  （原位子消失）
+.prepend()    添加到当前元素里最前面 
+.after（）   添加到当前元素后面 （兄弟元素）
+.before()    添加到当前元素前面	（兄弟元素）
+var num =$（“<p></p>”）
+num.appendto（“div”） 把num加入div中
+
+
+$("div").html("<p></p>")  创建元素
+
+.empty（）清空元素中的内容 
+.html("")
+.remove（） 移除元素自身
+.clone()  克隆元素
+
+
+.attr（“属性”，“属性值”）
+.attr("属性值")；
+.attr("属性")  获取属性
+
+固有属性 一般用prop（） 用法与attr相同
+
+.width（“”）设置宽度
+$("#div").width() 获取#div的宽度 （数值）
+$("#div").css("width")    (字符串)
+
+.offset().left    (数值型)
+.offset（“属性”：属性值 ，“属性”：属性值 ）
+
+$(document).click(function(){})  鼠标点击事件 
+$（window）.scroll（function（ {}））
+$(document).scrollTop（）  获取滚动高度
+
+设置多个事件
+.bind（“click”:function(){},"mouseover":function(){}。。。。）
+.bind("mouseover moouseout",function(){})    两个事件执行相同的函数
+
+
+$(父元素).delegate ("子元素对象"，“事件名”，function（）{})   父元素给子元素绑定事件
+
+
+$().on("click",function(){})
+$(父元素).on("事件名","子元素"，function（）{})         父元素给子元素绑定事件
+
+
+$().off("事件名")    解绑on中事件
+$().unbind("事件名")  解绑bind中事件
+$（）.undelegate("子元素"，“事件名”)
+
+如果父元素和子元素都是通过正常的方式绑定事件，如果通过off解绑的时候，父级元素解绑，子级不会被解绑
+如果通过delegate父元素给子元素绑定事件，父级元素使用off解绑了 则子级跟父级元素相同的事件也会被解绑 
+$(父元素).off("事件名".“**”)  子级解绑 父级还有事件
+#（父元素）.off（"事件名"，“**”）  所有键移除
+
+$("对象1").click()		促发对象1的事件
+$("对象1").trigger("事件名")    促发对象1的事件
+$("对象1").triggerHandler("事件名")    促发对象1的事件 （不会触发浏览器的默认事件）
+
+
+arguments 函数执行时根据传入的参数生成的事件信息
+target  事件目标
+currentTarget  被绑定的事件
+delegateTarget  使谁被绑定的元素
+
+
+return false  取消冒泡
+还可取消浏览器的默认事件（阻止a链接跳转）
+
+
+$("li[index=1]")  index属性等于1的li
+
+
+$("#ul>li")each(function(index, element){
+	$（element）.css("opacity",index/10)
+})   操作不同元素不同的设置
+
+
+width()   内容宽度
+innerWidth()  内容+padding
+outerWidth()  内容+padding+border
+outerWidth(true)  内容+padding+margin
+
+
+$().attr("属性"，“属性值”) 	设置值
+$().attr("属性")		获取值
+$().data("属性"，“属性值”) 	设置值
+$().data("属性") 		获取值
+$().data("属性"，{对象})；
+data-...  开头(全小写 无数字) （行内样式） 移动端
+$().data("属性名")
+setdata[“”]  （dom中使用）

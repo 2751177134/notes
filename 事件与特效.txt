@@ -1,0 +1,78 @@
+offsetHeight   获取元素的高 （包括内边距padding、border、height）
+offsetParent  距离自身最近的并且有定位的父级元素  如果当前父元素没有定位就是继续向上找 直至找到body
+
+
+offsetleft      元素距离自身最近的带有定位的父元素的左侧距离（从自身border左侧到父盒子border右侧算）
+获取的是数值 而且四舍五入取整
+
+scrollHeight  scrollWidth 获取盒子内部内容的高度、宽度 包括padding  不包括 border
+scrollTop  scrollLeft  n内容被减去头部的高度 或左部的宽度（滚动条滚动后看不到的头部左部的内容高左宽）
+
+window.getComputedStyle(demo,null).left； 获取demo中left属性 谷歌 火狐 ie9以上使用 demo也可直接写id 
+demo。currentStyle["left"]  ie678可使用
+
+
+client 用于元素的可视区
+clientheight  内容可视高度 包括padding 不包括 border
+
+clientLeft clientTop  左上边框的宽度（有滚动条就加上滚动条放的宽度）
+
+获取可视区的宽高
+    function client() {
+        return{
+            height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight||0,
+            width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth||0
+        }
+    }
+
+window.onresize=function () {} 获取可视区大小事件
+
+event.screenX  event.screenY;   鼠标在屏幕中的坐标
+event.clientX  event.clientY;	鼠标在可视窗口中的坐标
+event.pageX  event.pageY;  	鼠标在整个页面中的坐标
+
+
+event.Propagation（） 组织冒泡  （加在子盒子点击事件中  阻止的是点击事件event而不是元素）
+
+addEventListener（“事件”不加on，function（）{}，false）  添加事件监听器
+ 
+oninput  表单输入时执行
+onchange  失去焦点后表单元素的内容发生改变 这时候执行
+
+\d  预定义类表示数字digit   （只要有数字就可以）
+var regEx=new RegExp(/\d/)
+console.log（regEx.test（“1”））  返回true
+console.log（regEx.test（“a”））  返回false
+console.log（regEx.test（“a1”）） 返回true
+
+var regEx2 =/\d/  
+console.log(/\d/.text(“1”))     返回true
+
+\d  数字字符
+\D  非数字字符
+
+/[a-z]/  a到z所有字母
+/[0-9a-zA-Z]/  组合型
+/[^abc]/.test("")  只要不是a，b，c的都是true
+
+/^abc/.test("abcd")    开头必须是abc  返回true
+/abc＄/.test("dabc")   结尾必须是adc  返回true
+/^adc＄/.test("abc")   开通结尾都是abc 返回true  必须完全匹配  如果多一个abc 就返回false
+
+/^a*＄/.test("aaaaa")  	返回true	      *表示可出现0次或多次
+/^a*＄/.test("") 	返回true 
+
+/^a+＄/.test("aaaaa")   返回true              +表示可出现1次或多次
+/^a+＄/.test("")        返回false
+
+/^a？＄/.test("aaaaa")  返回false             ？表示可出现0次或1次
+/^a？＄/.test("")	返回true 
+
+{}自定义出现次数
+/^a{2}＄/.test("aaaaa")   返回false    a只出现2次
+/^a{2，}＄/.test("aaaaa")   a出现2次或更多 返回true
+/^a{2，5}＄/.test("aaaaa")  a出现2次到5次  返回true
+
+[  ]  表示一个字符
+
+（ ） 用于分组 可提高优先级
